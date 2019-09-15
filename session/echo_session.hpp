@@ -20,7 +20,7 @@ public:
 
     void start() override
     {
-        printf("start\n");
+        printf("EchoSession::start\n");
         do_read();
     }
 

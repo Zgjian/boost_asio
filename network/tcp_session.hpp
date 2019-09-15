@@ -24,6 +24,11 @@ public:
 
     virtual void start() = 0;
 
+    virtual void stop()
+    {
+        socket_.close();
+    }
+
     virtual void do_read() = 0;
 
     virtual void do_write() = 0;
