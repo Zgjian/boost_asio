@@ -13,8 +13,8 @@ private:
 
 public:
     EchoSession(tcp::socket socket)
-        : tcp_session(std::move(socket)),
-          m_recv_buff(1024, 0)
+        : tcp_session(std::move(socket))
+        , m_recv_buff(1024, 0)
     {
     }
 
@@ -27,7 +27,7 @@ public:
     void do_read() override
     {
         auto self(shared_from_this());
-        socket_.async_read_some(boost::asio::buffer(m_recv_buff.data(), m_recv_buff.size()),
+        socket_.async_read_some(boost::asio::buffer(m_recv_buff),
                                 [this, self](boost::system::error_code ec, std::size_t length)
         {
             if (!ec)

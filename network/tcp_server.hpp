@@ -14,7 +14,7 @@ private:
 
 public:
     explicit tcp_server(const std::string &address, const std::string &port)
-        : io_context_(1), acceptor_(io_context_)
+        : acceptor_(io_context_)
     {
         tcp::resolver resolver(io_context_);
         tcp::endpoint endpoint = *resolver.resolve(address, port).begin();
@@ -51,5 +51,10 @@ private:
             do_accept<tcp_session>();
         });
     }
+
+//    void onTimer(const boost::system::error_code &err)
+//    {
+//        printf("onTimer...\n");
+//    }
 
 };
