@@ -52,9 +52,4 @@ private:
         });
     }
 
-//    void onTimer(const boost::system::error_code &err)
-//    {
-//        printf("onTimer...\n");
-//    }
-
 };

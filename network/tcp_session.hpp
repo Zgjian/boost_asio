@@ -19,15 +19,15 @@ public:
 
     virtual ~tcp_session()
     {
-        socket_.close();
+        if (socket_.is_open())
+        {
+            socket_.close();
+        }
     }
 
     virtual void start() = 0;
 
-    virtual void stop()
-    {
-        socket_.close();
-    }
+    virtual void stop() = 0;
 
     virtual void do_read() = 0;
 
