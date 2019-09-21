@@ -10,10 +10,22 @@ int main(int argc, char *argv[])
 {
     printf("main\n");
 
-    tcp_server server("0.0.0.0", "8081");
+    const int threads = 3;
+    asio::io_context io_context{threads};
+
+
+    tcp_server server(io_context, "0.0.0.0", "8081");
     server.run<ChatSession>();
 
 
+    std::vector<std::thread> v;
+    v.reserve(threads - 1);
+    for (auto i = threads - 1; i > 0; --i)
+    {
+        v.emplace_back([&]{io_context.run();});
+    }
+
+    io_context.run();
 
     return 0;
 }

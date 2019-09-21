@@ -1,20 +1,18 @@
 #pragma once
 
-#include <boost/asio.hpp>
-
-using tcp = boost::asio::ip::tcp;
+#include "net.hpp"
 
 
 class tcp_server
-        : public std::enable_shared_from_this<tcp_server>
 {
 private:
-    boost::asio::io_context io_context_;
+    asio::io_context &io_context_;
     tcp::acceptor acceptor_;
 
 public:
-    explicit tcp_server(const std::string &address, const std::string &port)
-        : acceptor_(io_context_)
+    tcp_server(asio::io_context &io_context, const std::string &address, const std::string &port)
+        : io_context_(io_context)
+        , acceptor_(io_context)
     {
         tcp::resolver resolver(io_context_);
         tcp::endpoint endpoint = *resolver.resolve(address, port).begin();
@@ -32,7 +30,6 @@ public:
     void run()
     {
         do_accept<tcp_session>();
-        io_context_.run();
     }
 
 private:

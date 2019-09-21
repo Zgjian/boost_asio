@@ -6,7 +6,9 @@
 using namespace std;
 
 
-class EchoSession : public tcp_session
+class EchoSession
+        : public enable_shared_from_this<EchoSession>
+        , public tcp_session
 {
 private:
     vector<char> m_recv_buff;
@@ -36,10 +38,6 @@ public:
                 do_write(length);
             }
         });
-    }
-
-    void do_write() override
-    {
     }
 
 private:
