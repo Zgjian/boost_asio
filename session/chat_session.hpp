@@ -31,7 +31,7 @@ public:
         , m_dead_line(120)   //超时设定，120秒没数据交互，服务器主动踢出客户端
     {
         m_last_time = std::chrono::system_clock::now();
-        start_timer();
+//        start_timer();
     }
 
     void start() override
